@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+require "socket"
+require "gitdyndns/wan_ip"
+
+wan_provider = Gitdyndns::WanProvider::Akamai.new
+details = wan_provider.get_details
+
+details[:timestamp] = Time.now.to_s
+details[:user] = ENV["USER"]
+details[:local_host] = Socket.gethostname
+
+puts details
+
+
+
+

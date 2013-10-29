@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require "gitdyndns/db"
+
+db = Gitdyndns::DdnsDb.new("aw", "/home/awidegreen/temp/aw_gitdyndns")
+
+db.get_entries do |e|
+  puts e.name + "current ip #{e.ip}"
+end
+
