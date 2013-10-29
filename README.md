@@ -1,3 +1,5 @@
+# UNDER DEVELOPMENT - NOT WORKING YET
+
 # Gitdyndns
 
 TODO: Write a gem description
