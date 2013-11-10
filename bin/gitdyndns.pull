@@ -1,10 +1,16 @@
 #!/usr/bin/env ruby
 
 require "gitdyndns/db"
+require "gitdyndns/config"
 
-db = Gitdyndns::DdnsDb.new("aw", "/home/awidegreen/temp/aw_gitdyndns")
+repo_path = Gitdyndns::Config::get_repo_path
+lan_name  = Gitdyndns::Config::get_lan_name
+db = Gitdyndns::DdnsDb.new(lan_name, repo_path)
 
-db.get_entries do |e|
-  puts e.name + "current ip #{e.ip}"
+db.get_latest do |e|
+  begin 
+    puts e.name + " current ip #{e.wan_ip}"
+  rescue => e
+    puts "Something went wrong! " + e.to_s
+  end 
 end
-

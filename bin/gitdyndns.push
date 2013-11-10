@@ -1,17 +1,25 @@
 #!/usr/bin/env ruby
 
 require "socket"
+require "gitdyndns/db"
+require "gitdyndns/config"
 require "gitdyndns/wan_ip"
 
-wan_provider = Gitdyndns::WanProvider::Akamai.new
-details = wan_provider.get_details
+repo_path = Gitdyndns::Config::get_repo_path
+lan_name  = Gitdyndns::Config::get_lan_name
+details = {}
 
+wan_provider = Gitdyndns::WanProvider::Akamai.new
+#wan_provider = Gitdyndns::WanProvider::IfconfigMe.new
+wan_provider.get do |k, v|
+  details[k] = v
+end
+
+details[:name] = lan_name
 details[:timestamp] = Time.now.to_s
 details[:user] = ENV["USER"]
 details[:local_host] = Socket.gethostname
 
-puts details
-
-
-
+db = Gitdyndns::DdnsDb.new(lan_name, repo_path)
+db.update!(details)
 
