@@ -1,5 +1,3 @@
-# UNDER DEVELOPMENT - NOT WORKING YET
-
 # Gitdyndns
 
 The idea is to use a git repository as DDNS provider. 
