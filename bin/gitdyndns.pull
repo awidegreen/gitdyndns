@@ -3,13 +3,13 @@
 require "gitdyndns/db"
 require "gitdyndns/config"
 
-repo_path = Gitdyndns::Config::get_repo_path
-lan_name  = Gitdyndns::Config::get_lan_name
+repo_path = Gitdyndns.Config.get_repo_path
+lan_name  = Gitdyndns.Config.get_lan_name
 db = Gitdyndns::DdnsDb.new(lan_name, repo_path)
 
 db.get_latest do |e|
   begin 
-    puts e.name + " current ip #{e.wan_ip}"
+    puts e.wan_ip
   rescue => e
     puts "Something went wrong! " + e.to_s
   end 
